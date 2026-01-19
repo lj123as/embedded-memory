@@ -1,0 +1,26 @@
+[project]
+name = "embedded-memory"
+version = "0.1.0"
+description = "Embedded/device-testing memory plugin (observations -> audited rules) with query/resolve CLI"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "PyYAML>=6.0",
+  "jsonschema>=4.0",
+]
+
+[project.scripts]
+embedded-memory = "embedded_memory.cli:main"
+
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+embedded_memory = ["schemas/*.json"]

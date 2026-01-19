@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "embedded-memory:compile_response",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "request_id", "provenance_summary"],
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "minLength": 1 },
+    "request_id": { "type": "string", "minLength": 1 },
+    "provenance_summary": {
+      "type": "object",
+      "required": ["observation_ids_used"],
+      "properties": {
+        "observation_ids_used": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": true
+    },
+    "policy_echo": {
+      "type": "object",
+      "properties": {
+        "min_confidence_profile": { "type": "number", "minimum": 0, "maximum": 1 },
+        "min_confidence_override": { "type": "number", "minimum": 0, "maximum": 1 },
+        "write_low_confidence_to_candidates": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "profiles_to_upsert": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["model_id", "rule"],
+        "properties": {
+          "model_id": { "type": "string", "minLength": 1 },
+          "rule": {
+            "type": "object",
+            "required": ["id", "fw_range", "facts", "confidence", "provenance"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "fw_range": { "type": "string", "minLength": 1 },
+              "priority": { "type": "integer" },
+              "facts": { "type": "object" },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+              "provenance": {
+                "type": "object",
+                "required": ["observation_ids"],
+                "properties": {
+                  "observation_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+                  "run_id": { "type": ["string", "null"] }
+                },
+                "additionalProperties": true
+              },
+              "summary": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "candidates_to_create": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "model_id", "confidence", "provenance", "proposal"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "model_id": { "type": "string", "minLength": 1 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "provenance": {
+            "type": "object",
+            "required": ["observation_ids"],
+            "properties": {
+              "observation_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "run_id": { "type": ["string", "null"] }
+            },
+            "additionalProperties": true
+          },
+          "proposal": { "type": "object" },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "overrides_to_upsert": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["instance_id", "confidence", "provenance", "facts"],
+        "properties": {
+          "instance_id": { "type": "string", "minLength": 1 },
+          "fw_version": { "type": ["string", "null"] },
+          "facts": { "type": "object" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "provenance": {
+            "type": "object",
+            "required": ["observation_ids"],
+            "properties": {
+              "observation_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "run_id": { "type": ["string", "null"] }
+            },
+            "additionalProperties": true
+          },
+          "summary": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

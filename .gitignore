@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Local memory cache / overrides (project-local, typically not committed)
+data/memory/
+
+# Run artifacts / evidence (project-local)
+runs/
+
+# Local test stores
+.tmp-test-store*/

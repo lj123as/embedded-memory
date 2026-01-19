@@ -1,0 +1,10 @@
+{
+  "name": "embedded_memory",
+  "version": "0.1.0",
+  "description": "Embedded/device-testing memory plugin: observations -> audited rules, with query/resolve",
+  "namespace": "embedded_memory",
+  "skills": [
+    { "name": "using_embedded_memory", "path": "../skills/using_embedded_memory/SKILL.md" }
+  ]
+}
+
