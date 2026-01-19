@@ -54,6 +54,14 @@ Profile/Override 内使用 `facts` 自由字典（通用），但提供嵌入式
 - `facts.known_issues.*`（已知异常/边界条件）
 - `facts.calibration.*`（校准/偏置）
 
+### 5.1 必备的跨宿主注入键（v0.1）
+
+为支持“递归闭环”（下一次 run 自动使用上一次沉淀的规则），v0.1 建议优先支持以下标准键：
+
+- Analysis 默认模板（有序 fallback）：
+  - `facts.analysis.default_templates: ["metrics", "anomaly", "eda"]`
+  - 解释：模板按优先级排序，消费者选第一个可用模板作为默认。
+
 ## 6. 编译闭环（C：run 内写 + 全局汇总）
 
 ### 6.1 Observe（证据采集）

@@ -81,6 +81,13 @@ class MemoryStore:
                     "facts.known_issues.*",
                     "facts.calibration.*",
                 ],
+                "extraction_targets": {
+                    "analysis": {
+                        "default_templates_key": "facts.analysis.default_templates",
+                        "allowed_templates": ["eda", "cleaning", "metrics", "anomaly", "viz", "full"],
+                        "instructions": "If evidence suggests a default analysis workflow for this model+fw, write facts.analysis.default_templates as an ordered list of template keys (first is preferred).",
+                    }
+                },
             },
             "inputs": {
                 "allowed_write_paths": [
@@ -97,7 +104,7 @@ class MemoryStore:
             },
             "observation_ids": observation_ids,
             "observations": observations,
-            "note": "Host LLM must output a STRICT JSON compile_response.json only (no prose).",
+            "note": "Host LLM must output a STRICT JSON compile_response.json only (no prose). Use policy.extraction_targets as guidance; include provenance.observation_ids for every proposed item.",
         }
         self._validate("compile_request.schema.json", request)
         out_path.write_text(json.dumps(request, ensure_ascii=False, indent=2), encoding="utf-8")
